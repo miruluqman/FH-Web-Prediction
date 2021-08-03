@@ -1,0 +1,9 @@
+{% extends "authorize/base.html" %}
+{% block title %}
+Frontpage
+{% endblock %}
+{% block content %}
+<h1>Welcome</h1>
+<a href="{% url 'login' %}">Login</a><br/>
+<a href="{% url 'signup' %}">Create New Account</a>
+{% endblock %}

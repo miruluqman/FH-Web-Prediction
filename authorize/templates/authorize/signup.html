@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Sign Up</title>   
+    </head>
+
+    <body>
+        
+        <div class="signup-container">
+            <form method="POST" class="signup-card">
+                <h1>New Account</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <p>
+                    <div class="label-form">
+                        {{ field.label_tag }}{{ field }}
+                    </div>
+                </p>
+                {% endfor %}
+                <div class="button-container"><button type="submit">SIGN UP</button></div><br/>
+                <a href="{% url 'login' %}"> << back to Sign In page</a>
+            </form>
+            
+        </div>
+        
+    </body>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        body{
+            background: white;
+            margin: -20px 0 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1{
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        form{
+            background-color: #FFFFFF;
+            
+            align-items: center;
+            justify-content: center;
+            
+            padding: 0 10px;
+
+            width: 70%;
+            height: 90%;
+
+            border-radius: 25px;
+            border: black solid 3px;
+        }
+
+        input{
+            background-color: #eee;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 15px;
+            margin-left: 60px;
+            margin: 8px 0;
+            width: 50%;
+        }
+
+        button{
+            border-radius: 20px;
+            font-size: 16px;
+            width: 20%;
+            background: #FF4B2B;
+            border: none;
+            font-weight: bold;
+            color: white; 
+            
+        }
+
+        a{
+            display: flex;
+            justify-content: center;
+            padding-right: 25px;
+        }
+
+        button:hover{
+            color: red;
+            background: white;
+            border: red solid 3px;
+
+        }
+
+        .button-container{
+            margin-top: 20px;
+            padding-right: 30px;
+            display: flex;
+            justify-content: center;
+            height: 5%;
+        }
+
+        .signup-container{
+            position: relative;
+            display: flex;
+            background: #94eeee;
+            align-items: center;
+            justify-content: center;
+            height: 740px;
+            width: 100%;
+            margin-top: 47px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .label-form{
+            display: flex;
+            justify-content: space-between;
+            margin-left: 30%;
+            margin-right: 20%;
+        }
+
+        .hospital-label{
+            margin-left: 7%;
+        }
+    </style>
+</html>

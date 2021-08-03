@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Patient List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    </head>
+    <body>
+        <input type="checkbox" id="active">
+        <label for="active" class="menu-btn"><span></span></label>
+        <label for="active" class="close"></label>
+        <div class="wrapper">
+            <ul>
+                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'prediction' %}">Diagnosis</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="container">
+            <div class="nav-tab">
+                <button class="nav-tablinks1" onclick="openTab(event, 'ldl')" id="defaultOpen">LDL-C Level for All Patient</button><br/>
+                <button class="nav-tablinks2" onclick="openTab(event, 'tc')">Total Cholesterol for All Patient</button>
+                <button class="nav-tablinks3" onclick="openTab(event, 'hdl')">HDL-C Level for All Patient</button>
+                <button class="nav-tablinks4" onclick="openTab(event, 'tg')">Triglycerides Level for All Patient</button>
+            </div>
+
+            <div id='ldl' class="tabcontent">  
+                {% autoescape off %}
+                {{ figure }}
+                {% endautoescape %}
+            </div>
+            <div id='tc' class="tabcontent">  
+                {% autoescape off %}
+                {{ figure2 }}
+                {% endautoescape %}
+            </div>
+            <div id='hdl' class="tabcontent">  
+                {% autoescape off %}
+                {{ figure3 }}
+                {% endautoescape %}
+            </div>
+            <div id='tg' class="tabcontent">  
+                {% autoescape off %}
+                {{ figure4 }}
+                {% endautoescape %}
+            </div>
+
+            <div class="container">
+            </div>            
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>Graph for Patient</th>
+                    <th>LDL (mmol/L)</th>
+                    <th>Total Cholesterol (mmol/L)</th>
+                    <th>HDL (mmol/L)</th>
+                    <th>Triglyceride Level (mmol/L)</th>
+                    <th>Previous Appointment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in patient_latest %}
+                    <tr>
+                        <td>
+                            {{ item.patient.full_name }}
+                        </td>
+                        <td class='select'>
+                            <a class='button' href="{% url 'edit' name=item.patient.full_name id=item.patient.id%}" target="_blank">Show</a>
+                        </td>
+                        <td>
+                            {{ item.ldl.ldl }}
+                        </td>
+                        <td>
+                            {{ item.tc.total_cholesterol }}
+                        </td>
+                        <td>
+                            {{ item.hdl.hdl }}
+                        </td>
+                        <td>
+                            {{ item.tg.tg }}
+                        </td>
+                        <td>
+                            {{ item.date }}
+                        </td> 
+                    </tr>
+                    {% endfor %}
+                    
+                    {% for item in patientrecent %}
+                    <tr>
+                        <td>
+                            {{ item.patient.full_name }}
+                        </td>
+                        <td class='select'>
+                            <a class='button' href="{% url 'edit' name=item.patient.full_name id=item.patient.id%}" target="_blank">Show</a>
+                        </td>
+                        <td>
+                            {{ item.ldl.ldl }}
+                        </td>
+                        <td>
+                            {{ item.tc.total_cholesterol }}
+                        </td>
+                        <td>
+                            {{ item.hdl.hdl }}
+                        </td>
+                        <td>
+                            {{ item.tg.tg }}
+                        </td>
+                        <td>
+                            {{ item.date }}
+                        </td> 
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>    
+    </body>
+
+    <style>
+
+        button{
+            height: 20%;
+        }
+        .nav-tab{
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            height: 20%;
+        }
+        
+        .tabcontent{
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        .nav-tablinks1{
+            background: red;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+            
+        }
+
+        .nav-tab .nav-tablinks1:focus{
+            background: white;
+            color: red;
+            border: red solid 3px;
+        }
+
+        .nav-tablinks2{
+            background: orange;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-tab .nav-tablinks2:focus{
+            background: white;
+            color: orange;
+            border: orange solid 3px;
+        }
+
+        .nav-tablinks3{
+            background: blue;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-tab .nav-tablinks3:focus{
+            background: white;
+            color: blue;
+            border: blue solid 3px;
+        }
+
+        .nav-tablinks4{
+            background: purple;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-tab .nav-tablinks4:focus{
+            background: white;
+            color: purple;
+            border: purple solid 3px;
+        }
+
+        *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Oswald', sans-serif;
+}
+.wrapper{
+  position: fixed;
+  top: 0;
+  /*left: -100%;*/
+  right: -100%;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  /*background: linear-gradient(90deg, #f92c78, #4114a1);*/
+  /* background: linear-gradient(375deg, #1cc7d0, #2ede98); */
+ /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%);*/
+  transition: all 0.6s ease-in-out;
+}
+#active:checked ~ .wrapper{
+  /*left: 0;*/
+  right:0;
+}
+.menu-btn{
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  /*left: 20px; */
+  top: 20px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  /*color: #fff;*/
+  /*background: linear-gradient(90deg, #f92c78, #4114a1);*/
+  /* background: linear-gradient(375deg, #1cc7d0, #2ede98); */
+ /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%); */
+  transition: all 0.3s ease-in-out;
+}
+.menu-btn span,
+.menu-btn:before,
+.menu-btn:after{
+	content: "";
+	position: absolute;
+	top: calc(50% - 1px);
+	left: 30%;
+	width: 40%;
+	border-bottom: 2px solid #000;
+	transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.menu-btn:before{
+  transform: translateY(-8px);
+}
+.menu-btn:after{
+  transform: translateY(8px);
+}
+
+
+.close {
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	transition: background .6s;
+}
+
+/* closing animation */
+#active:checked + .menu-btn span {
+	transform: scaleX(0);
+}
+#active:checked + .menu-btn:before {
+	transform: rotate(45deg);
+  border-color: #fff;
+}
+#active:checked + .menu-btn:after {
+	transform: rotate(-45deg);
+  border-color: #fff;
+}
+.wrapper ul{
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  height: 90%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+  text-align: center;
+}
+.wrapper ul li{
+  height: 10%;
+  margin: 15px 0;
+}
+.wrapper ul li a{
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: 500;
+  padding: 5px 30px;
+  color: #fff;
+  border-radius: 50px;
+  position: absolute;
+  line-height: 50px;
+  margin: 5px 30px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.wrapper ul li a:after{
+  position: absolute;
+  content: "";
+  background: #fff;
+   /*background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);*/
+  /*background: linear-gradient(375deg, #1cc7d0, #2ede98);*/
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 50px;
+  transform: scaleY(0);
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+.wrapper ul li a:hover:after{
+  transform: scaleY(1);
+}
+.wrapper ul li a:hover{
+  color: #1a73e8;
+}
+input[type="checkbox"]{
+  display: none;
+}
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  text-align: center;
+  width: 100%;
+  color: #202020;
+}
+.content .title{
+  font-size: 40px;
+  font-weight: 700;
+}
+.content p{
+  font-size: 35px;
+  font-weight: 600;
+}
+
+#active:checked ~ .wrapper ul li a{
+  opacity: 1;
+}
+.wrapper ul li a{
+  transition: opacity 1.2s, transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform: translateX(100px);
+}
+#active:checked ~ .wrapper ul li a{
+	transform: none;
+	transition-timing-function: ease, cubic-bezier(.1,1.3,.3,1); /* easeOutBackを緩めた感じ */
+   transition-delay: .6s;
+  transform: translateX(-100px);
+}
+
+    </style>
+    <script>
+        function openTab(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+    </script>
+</html>

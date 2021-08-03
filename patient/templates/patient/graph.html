@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>{{ title }}</title>         
+    </head>
+
+    <body>
+        <div class="nav-tab">
+            <button class="nav-tablinks1" onclick="openTab(event, 'ldl')" id="defaultOpen">LDL-C Level for All Patient</button><br/>
+            <button class="nav-tablinks2" onclick="openTab(event, 'tc')">Total Cholesterol for All Patient</button>
+            <button class="nav-tablinks3" onclick="openTab(event, 'hdl')">HDL-C Level for All Patient</button>
+            <button class="nav-tablinks4" onclick="openTab(event, 'tg')">Triglycerides Level for All Patient</button>
+        </div>
+
+        <div id='ldl' class="tabcontent">  
+            {% autoescape off %}
+            {{ plot_div1 }}
+            {% endautoescape %}
+        </div>
+        <div id='tc' class="tabcontent">  
+            {% autoescape off %}
+            {{ plot_div2 }}
+            {% endautoescape %}
+        </div>
+        <div id='hdl' class="tabcontent">  
+            {% autoescape off %}
+            {{ plot_div3 }}
+            {% endautoescape %}
+        </div>
+        <div id='tg' class="tabcontent">  
+            {% autoescape off %}
+            {{ plot_div4 }}
+            {% endautoescape %}
+        </div>
+    </body>
+
+    <style>
+        button{
+            height: 20%;
+        }
+        .nav-tab{
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            height: 20%;
+        }
+        
+        .tabcontent{
+            justify-content: center;
+            padding-left: 40px;
+        }
+
+        .nav-tablinks1{
+            background: red;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+            
+        }
+
+        .nav-tab .nav-tablinks1:focus{
+            background: white;
+            color: red;
+            border: red solid 3px;
+        }
+
+        .nav-tablinks2{
+            background: orange;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-tab .nav-tablinks2:focus{
+            background: white;
+            color: orange;
+            border: orange solid 3px;
+        }
+
+        .nav-tablinks3{
+            background: blue;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-tab .nav-tablinks3:focus{
+            background: white;
+            color: blue;
+            border: blue solid 3px;
+        }
+
+        .nav-tablinks4{
+            background: purple;
+            color: white;
+            border: black solid 3px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .nav-tab .nav-tablinks4:focus{
+            background: white;
+            color: purple;
+            border: purple solid 3px;
+        }
+    </style>
+    <script>
+        function openTab(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+    </script>
+</html>
