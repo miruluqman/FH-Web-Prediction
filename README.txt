@@ -15,3 +15,6 @@ ABOUT THIS PROJECT
 	1. user authorization (login/logout/sign up)
 	2. patient management dashboard (see patient details and data visualization using graph)
 	3. FH diagnosis (diagnose patient based on DLCC criteria)
+
+
+For project demo and details: https://drive.google.com/drive/folders/1GmmCgdcqSjxR_8EAipAK1pSL5wyQs9qa?usp=sharing
